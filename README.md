@@ -57,4 +57,4 @@ Once your Job file is ready, use the standard method of submitting the job to no
 
 ## Maintainers
 
-@bhope
+@- [@bhope](https://github.com/bhope)
