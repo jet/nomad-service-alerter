@@ -54,3 +54,7 @@ If you want to run Nomad Service Alerter on Nomad, you would need to have follow
 
 ```
 Once your Job file is ready, use the standard method of submitting the job to nomad. A sample job file (**nomad-service-alerter.manifest.json** is included in the repo. Make sure you use it only for reference)
+
+## Maintainers
+
+@bhope
