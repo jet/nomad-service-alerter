@@ -1,7 +1,6 @@
 # Nomad Service Alerter
 
-Nomad Service Alerter is a tool whose primary goal is to provide alerting for your services running on Nomad. It offers configurable opt-in alerting options which you can specify in your Nomad Job manifest (json file) as Environment Variables.
-The Nomad Service Alerter mainly covers Consul Health-Check Alerts and Service Restart-Loops Alerts.
+Nomad Service Alerter is a tool written in Go, whose primary goal is to provide alerting for your services running on Nomad (https://www.nomadproject.io/). It offers configurable opt-in alerting options which you can specify in your Nomad Job manifest (json file) as Environment Variables. The Nomad Service Alerter mainly covers Consul Health-Check Alerts and Service Restart-Loops Alerts.
 
 ## Consul Health-Check Alerts
 
@@ -13,12 +12,33 @@ This alert will monitor jobs (and all of its allocations) and alert on the servi
 
 ## Secondary Alerts
 
-Nomad Service Alerter also covers Queued Instances Alerts and Orphaned Instances Alerts (these would be less likely to be used by teams other than Guardians). You can configure Nomad Service Alerter to opt in into these two alerts. Queued Instances Alerts will alert when a service has un-allocated instances for at least 3 minutes. Orphaned Instances Alert will trigger when the service has more number of allocations running than what it has asked for. (In this case there is one or multiple rogue allocations running on some machine which do not have any parent nomad process, hence the name)
+Nomad Service Alerter also covers Queued Instances Alerts and Orphaned Instances Alerts. You can configure Nomad Service Alerter to opt in into these two alerts. Queued Instances Alerts will alert when a service has un-allocated instances for at least 3 minutes. Orphaned Instances Alert will trigger when the service has more number of allocations running than what it has asked for. (In this case there is one or multiple rogue allocations running on some machine which do not have any parent nomad process, hence the name)
 
 ## Build and Test
 
-To run the tool on your local machine, you will have to make sure all the environment variables (ones described above) are set with appropriate values.
-Before running the tool, make sure you update all the dependencies by running `glide install`.
+To run the tool on your local machine, you will have to :
+* Install and set up $GPROOT and $GOPATH. (https://golang.org/doc/install)
+* Install glide (https://github.com/Masterminds/glide)
+* Clone the repo (git clone https://github.com/jet/nomad-service-alerter)
+* cd into the code repo (```cd nomad-service-alerter```)
+* Run ```glide init```
+* Run ```glide install```
+* Make sure following environment variables are set with appropriate values.
+```
+
+"nomad_server" --> your nomad server address
+"env" --> the environment in which the tool would be running
+"region" --> the region in which your tool would be running
+"pdservicekey" --> the pager duty service integration key (one which you want to use to send the alerts to)
+"alert_switch" --> on/off. This controls the switching on/off of the Secondary Alerts (Queued Instances Alerts and Orphaned Instances Alerts)
+"consul_server" --> your consul server address
+"consul_datacenter" --> datacenter of your consul server
+
+```
+You can use the script ```loadenv.sh``` after adding appropriate values to load all the above variables.
+* Run ```go build```
+* Execute the binary. (Or you can skip the ```go build``` step and run ```go run main.go``` instead)
+
 
 ### Configuring a nomad service to be alerted on by Nomad Service Alerter upon being unhealthy
 
@@ -40,7 +60,7 @@ restart_loop_alerting_enabled: true
 
 ## Running Nomad Service Alerter on Nomad
 
-If you want to run Nomad Service Alerter on Nomad, you would need to have following Environment Variables set in your job manifest (json file):
+If you want to run Nomad Service Alerter on Nomad, you would need to have the Environment Variables (ones described in 'Build and Test' section) set with appropriate values in your job manifest (json file):
 
 ```
 
@@ -53,8 +73,8 @@ If you want to run Nomad Service Alerter on Nomad, you would need to have follow
 "consul_datacenter" --> datacenter of your consul server
 
 ```
-Once your Job file is ready, use the standard method of submitting the job to nomad. A sample job file (**nomad-service-alerter.manifest.json** is included in the repo. Make sure you use it only for reference)
+Once your Job file is ready, use the standard method of submitting the job to nomad (https://www.nomadproject.io/docs/operating-a-job/submitting-jobs.html). A sample job file (**nomad-service-alerter.manifest.json** is included in the repo. Make sure you use it only for reference)
 
 ## Maintainers
 
-[@bhope](https://github.com/bhope)
+* [@bhope](https://github.com/bhope)
