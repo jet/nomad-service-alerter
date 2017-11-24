@@ -23,10 +23,10 @@ Before running the tool, make sure you update all the dependencies by running `g
 ### Configuring a nomad service to be alerted on by Nomad Service Alerter upon being unhealthy
 
 You can configure your service by adding following key-value pairs to the **Meta** section of your Nomad Job.
-**consul_service_healthcheck_enabled --> true/false (to enable/disable consul healthcheck alerts)**
-**consul_service_healthcheck_threshold --> Time duration for which service can remain in unhealthy state before getting alerted (eg. 2m0s)**
-**pd_service_key --> 32 characters Pagerduty Serrvice integration key (all the alerts will be sent here)**
-**restart_loop_alerting_enabled --> true/false (to enable/disable restart loop alerts)**
+* consul_service_healthcheck_enabled --> true/false (to enable/disable consul healthcheck alerts)
+* consul_service_healthcheck_threshold --> Time duration for which service can remain in unhealthy state before getting alerted (eg. 2m0s)
+* pd_service_key --> 32 characters Pagerduty Serrvice integration key (all the alerts will be sent here)
+* restart_loop_alerting_enabled --> true/false (to enable/disable restart loop alerts)
 
 Following is an example of key-value pairs described above that your Job **Meta** section (Job level) should have :
 
