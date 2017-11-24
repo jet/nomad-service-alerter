@@ -1,0 +1,180 @@
+{
+  "Stop": false,
+  "Region": "eastus2",
+  "ID": "jet/nomad-service-alerter",
+  "ParentID": "",
+  "Name": "jet-nomad-service-alerter",
+  "Type": "service",
+  "Priority": 80,
+  "AllAtOnce": false,
+  "Datacenters": [
+    "qa"
+  ],
+  "Constraints": null,
+  "TaskGroups": [
+    {
+      "Name": "default-group",
+      "Count": 1,
+      "Constraints": [
+        {
+          "LTarget": "...",
+          "RTarget": ">= 0.6.1",
+          "Operand": "version"
+        }
+      ],
+      "Tasks": [
+        {
+          "Name": "jet-nomad-service-alerter-task",
+          "Driver": "docker",
+          "User": "",
+          "Config": {
+            "image": "https://p2jet-on.azurecr.io/jet-jet/nomad-service-alerter:1.0.77",
+            "port_map": [
+              {
+                "http": 8000
+              }
+            ]
+          },
+          "Constraints": [
+            {
+              "LTarget": "${attr.kernel.name}",
+              "RTarget": "linux",
+              "Operand": "="
+            },
+            {
+              "LTarget": "${meta.approved_for}",
+              "RTarget": "all",
+              "Operand": "set_contains"
+            }
+          ],
+          "Env": {
+            "CONSUL_ADDR": "<consul_addr>",
+            "alert_switch": "on",
+            "consul_datacenter": "qa",
+            "consul_server": "<consul_addr>",
+            "env": "qa",
+            "nomad_server": "<nomad_server>",
+            "pdservicekey": "<key>",
+            "region": "eastus2"
+          },
+          "Services": [
+            {
+              "Id": "",
+              "Name": "jet-nomad-service-alerter",
+              "Tags": [
+                "v1.0.77",
+                "superhero-jet",
+                "proxied",
+                "port-http",
+                "proxy-nomad.eastus2.qa.jet.network"
+              ],
+              "PortLabel": "http",
+              "AddressMode": "auto",
+              "Checks": [
+                {
+                  "Id": "",
+                  "Name": "service: \"jet-nomad-service-alerter\" check",
+                  "Type": "http",
+                  "Command": "",
+                  "Args": null,
+                  "Path": "/health",
+                  "Protocol": "",
+                  "PortLabel": "http",
+                  "Interval": 100000000000,
+                  "Timeout": 10000000000,
+                  "InitialStatus": "",
+                  "TLSSkipVerify": false
+                }
+              ]
+            }
+          ],
+          "Resources": {
+            "CPU": 300,
+            "MemoryMB": 128,
+            "DiskMB": 0,
+            "IOPS": 0,
+            "Networks": [
+              {
+                "Device": "",
+                "CIDR": "",
+                "IP": "",
+                "MBits": 5,
+                "ReservedPorts": null,
+                "DynamicPorts": [
+                  {
+                    "Label": "http",
+                    "Value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "Meta": null,
+          "KillTimeout": 5000000000,
+          "LogConfig": {
+            "MaxFiles": 10,
+            "MaxFileSizeMB": 10
+          },
+          "Artifacts": null,
+          "Templates": null,
+          "DispatchPayload": null,
+          "Leader": false,
+          "ID": "jet/nomad-service-alerter.default-group.jet-nomad-service-alerter-task"
+        }
+      ],
+      "RestartPolicy": {
+        "Interval": 300000000000,
+        "Attempts": 10,
+        "Delay": 30000000000,
+        "Mode": "delay"
+      },
+      "EphemeralDisk": {
+        "Sticky": false,
+        "Migrate": false,
+        "SizeMB": 300
+      },
+      "Update": {
+        "Stagger": 10000000000,
+        "MaxParallel": 1,
+        "HealthCheck": "checks",
+        "MinHealthyTime": 10000000000,
+        "HealthyDeadline": 300000000000,
+        "AutoRevert": false,
+        "Canary": 0
+      },
+      "Meta": null,
+      "ID": "jet/nomad-service-alerter.default-group"
+    }
+  ],
+  "Update": {
+    "Stagger": 10000000000,
+    "MaxParallel": 1,
+    "HealthCheck": "",
+    "MinHealthyTime": 0,
+    "HealthyDeadline": 0,
+    "AutoRevert": false,
+    "Canary": 0
+  },
+  "Periodic": null,
+  "ParameterizedJob": null,
+  "Payload": null,
+  "Meta": {
+    "artifact_version": "1.0.77",
+    "env": "qa",
+    "hero": "jet",
+    "region": "eastus2",
+    "restart_loop_alerting_enabled": "true",
+    "service": "nomad-service-alerter",
+    "timestamp": "20171109235518",
+    "version": "1.0.77"
+  },
+  "VaultToken": "",
+  "Status": "running",
+  "StatusDescription": "",
+  "Stable": true,
+  "Version": 29,
+  "SubmitTime": 1510271720011325400,
+  "CreateIndex": 476344,
+  "ModifyIndex": 30527080,
+  "JobModifyIndex": 30526742
+}

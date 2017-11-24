@@ -1,0 +1,12 @@
+package: go.jet.network/guardians/opensource/nomad-service-alerter
+import:
+- package: github.com/PagerDuty/go-pagerduty
+- package: github.com/hashicorp/consul
+  version: v1.0.1
+  subpackages:
+  - api
+- package: github.com/hashicorp/nomad
+  version: v0.7.0
+  subpackages:
+  - api
+- package: go.jet.network/guardians/nomad-service-alerter/types
