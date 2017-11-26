@@ -17,7 +17,7 @@ Nomad Service Alerter also covers Queued Instances Alerts and Orphaned Instances
 ## Build and Test
 
 To run the tool on your local machine, you will have to :
-* Install and set up $GPROOT and $GOPATH. (https://golang.org/doc/install)
+* Install and set up your Go environment. (https://golang.org/doc/install)
 * Install glide (https://github.com/Masterminds/glide)
 * Clone the repo (git clone https://github.com/jet/nomad-service-alerter)
 * cd into the code repo (```cd nomad-service-alerter```)
