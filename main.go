@@ -10,9 +10,6 @@ import (
 	"sync"
 	"time"
 
-	"go.jet.network/guardians/opensource/nomad-service-alerter/logger"
-	"go.jet.network/guardians/opensource/nomad-service-alerter/notifications"
-
 	consul "github.com/hashicorp/consul/api"
 	"github.com/hashicorp/nomad/api"
 
@@ -20,8 +17,8 @@ import (
 	"net/http"
 
 	"github.com/PagerDuty/go-pagerduty"
-	// "github.com/jet/nomad-service-alerter/logger"
-	// "github.com/jet/nomad-service-alerter/notifications"
+	"github.com/jet/nomad-service-alerter/logger"
+	"github.com/jet/nomad-service-alerter/notifications"
 )
 
 const (
